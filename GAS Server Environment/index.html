@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>React in GAS</title>
+    <!-- React and ReactDOM from CDN -->
+    <!-- SRI Hashes generated with https://www.srihash.org/ --> 
+    <script 
+      src="https://unpkg.com/react@18.2/umd/react.production.min.js" integrity="sha384-tMH8h3BGESGckSAVGZ82T9n90ztNXxvdwvdM6UoR56cYcf+0iGXBliJ29D+wZ/x8" 
+      crossorigin="anonymous">
+    </script>
+    <script 
+      src="https://unpkg.com/react-dom@18.2.0/umd/react-dom.production.min.js" 
+      integrity="sha384-bm7MnzvK++ykSwVJ2tynSE5TRdN+xL418osEVF2DE/L/gfWHj91J2Sphe582B1Bh" 
+      crossorigin="anonymous">
+    </script>
+
+  </head>
+  <body>
+    <div id="root"></div> <!-- React will attach to this div -->
+
+<!-- This is a bridge to allow the code to access React 
+and ReactDOM in a more recognizable format. --> 
+    <script>
+      const React = window.React;
+      const ReactDOM = window.ReactDOM;
+      // Probably define it here, in a way that reaches out of the index.html file and into the code.gs file
+
+      window.gas = {
+
+        run: function(spec) {
+          // Destructure the spec object
+          const { funcName, funcArgs, onSuccess, onFailure, userObject } = spec;
+          if (funcArgs === undefined) {
+            funcArgs = [];
+          }
+          // Create the google.script.run chain
+          var runChain = google.script.run;
+          // Attach user object if provided
+          if (userObject) {
+            runChain = runChain.withUserObject(userObject);
+          }
+          // Attach success handler if provided
+          if (onSuccess) {
+            runChain = runChain.withSuccessHandler(onSuccess);
+          }
+          // Attach failure handler if provided
+          if (onFailure) {
+            runChain = runChain.withFailureHandler(onFailure);
+          }
+          // Call the server-side function with arguments
+          runChain[funcName](...funcArgs);
+        }
+      };
+    </script>
+
+<!-- PASTE BUNDLE HERE between these script tags 
+
+░░█ ▄▀█ █░█ ▄▀█ █▀ █▀▀ █▀█ █ █▀█ ▀█▀   █░█ █▀▀ █▀█ █▀▀ ▀
+█▄█ █▀█ ▀▄▀ █▀█ ▄█ █▄▄ █▀▄ █ █▀▀ ░█░   █▀█ ██▄ █▀▄ ██▄ ▄
+
+paste the transpiled, bundled output.js JavaScript file here, 
+in between the following script tags:
+--> <script> 
+
+
+  
+</script>
+
+<!--
+
+█▀▀ █▀ █▀   █░█ █▀▀ █▀█ █▀▀ ▀
+█▄▄ ▄█ ▄█   █▀█ ██▄ █▀▄ ██▄ ▄
+
+Paste the CSS into one group here,
+in between the following style tags:
+-->
+
+<style type="text/css">
+
+
+
+
+</style>
+
+  </body>
+</html>
