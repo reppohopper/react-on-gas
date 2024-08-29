@@ -54,3 +54,17 @@ Then, create a file in the root directory called `.babelrc` file with the follow
 ```
 Finally, create an empty file called `output.js` in this same root directory. 
 
+## Pushing Code from Development to Production
+
+Now you can use your favorite IDE to edit the code in a development environment, with the live test server available through 
+## 
+    npm run start
+This does unfortunately separate the development environment from the production environment. The dev environment won't have access to the backend GAS functions. So unfortunately you have to mock all of these serverside functions using the  `mock_gas.js` file. 
+
+Another downside is that there is no css bundling with this boilerplate code. All of your css code must live in the `index.css` file. 
+
+To push code to the production instance, run 
+### 
+    npm run export
+Then all of the JavaScript will bundle itself into the single `output.js` file, without JSX, and un-minimized so that none of the function names change and so that you can realistically find, read, and make small changes to elements of the production intstance. 
+
